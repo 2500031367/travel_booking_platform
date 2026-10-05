@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wayfare — Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f1e8;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #183b2b;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+
+            background: white;
+
+            padding: 45px 40px;
+
+            border-radius: 20px;
+
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        /* LOGO */
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            color: #176b45;
+            font-weight: 700;
+        }
+
+        .logo p {
+            margin-top: 5px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* TITLE */
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 26px;
+        }
+
+        /* INPUTS */
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #ccc;
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #176b45;
+            box-shadow: 0 0 0 2px rgba(23, 107, 69, 0.1);
+        }
+
+        /* PASSWORD */
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 60px;
+        }
+
+        .show-password {
+            position: absolute;
+
+            right: 12px;
+            top: 13px;
+
+            border: none;
+            background: none;
+
+            color: #176b45;
+
+            cursor: pointer;
+
+            font-size: 13px;
+        }
+
+        /* OPTIONS */
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin: 15px 0 22px;
+
+            font-size: 13px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .options a {
+            color: #176b45;
+            text-decoration: none;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        /* LOGIN BUTTON */
+
+        .login-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #176b45;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #0f5435;
+            transform: translateY(-1px);
+        }
+
+        /* DIVIDER */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 25px 0;
+
+            color: #999;
+
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #ddd;
+        }
+
+        /* SIGN UP */
+
+        .signup {
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #666;
+        }
+
+        .signup a {
+            color: #176b45;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .signup a:hover {
+            text-decoration: underline;
+        }
+
+        /* MESSAGE */
+
+        .message {
+            display: none;
+
+            margin-bottom: 15px;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+        .error {
+            background: #ffe5e5;
+            color: #b42318;
+        }
+
+        .success {
+            background: #e3f7eb;
+            color: #176b45;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
+            .login-container {
+                margin: 20px;
+
+                padding: 35px 25px;
+            }
+
+            .logo h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- WAYFARE LOGO -->
+
+        <div class="logo">
+            <h1>Wayfare</h1>
+
+            <p>Travel thoughtfully</p>
+        </div>
+
+
+        <!-- LOGIN TITLE -->
+
+        <h2>Welcome Back</h2>
+
+
+        <!-- MESSAGE -->
+
+        <div id="message" class="message"></div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form id="loginForm">
+
+            <!-- EMAIL -->
+
+            <div class="input-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword()"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPTIONS -->
+
+            <div class="options">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="remember"
+                    >
+
+                    Remember me
+
+                </label>
+
+
+                <a
+                    href="#"
+                    onclick="forgotPassword()"
+                >
+                    Forgot password?
+                </a>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider">
+            OR
+        </div>
+
+
+        <!-- SIGN UP -->
+
+        <div class="signup">
+
+            Don't have an account?
+
+            <a
+                href="#"
+                onclick="createAccount()"
+            >
+                Create Account
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           SHOW / HIDE PASSWORD
+        ========================= */
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".show-password");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                button.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+
+                button.textContent = "Show";
+
+            }
+        }
+
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document.getElementById("email").value;
+
+                const password =
+                    document.getElementById("password").value;
+
+                const message =
+                    document.getElementById("message");
+
+
+                /*
+                    DEMO LOGIN DETAILS
+
+                    Email:
+                    demo@wayfare.com
+
+                    Password:
+                    123456
+                */
+
+
+                if (
+                    email === "demo@wayfare.com" &&
+                    password === "123456"
+                ) {
+
+                    message.textContent =
+                        "Login successful! Welcome to Wayfare.";
+
+                    message.className =
+                        "message success";
+
+                    message.style.display =
+                        "block";
+
+
+                    /*
+                        OPEN YOUR WAYFARE WEBSITE
+                    */
+
+                    setTimeout(function() {
+
+                        window.location.href =
+                            "file:///C:/Users/venka/OneDrive/Desktop/Wayfare_Trip_PDF_FIXED.html";
+
+                    }, 1000);
+
+
+                } else {
+
+                    message.textContent =
+                        "Invalid email or password. Try demo@wayfare.com / 123456";
+
+                    message.className =
+                        "message error";
+
+                    message.style.display =
+                        "block";
+                }
+
+            });
+
+
+        /* =========================
+           FORGOT PASSWORD
+        ========================= */
+
+        function forgotPassword() {
+
+            alert(
+                "Password reset feature will be available soon."
+            );
+
+        }
+
+
+        /* =========================
+           CREATE ACCOUNT
+        ========================= */
+
+        function createAccount() {
+
+            alert(
+                "Account registration page will be available soon."
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
